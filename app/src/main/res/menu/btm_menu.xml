@@ -9,7 +9,7 @@
         android:icon="@drawable/ic_favorites"
         android:id="@+id/favoritesFragment"/>/>
     <item
-        android:title="Kategori"
+        android:title="Daily"
         android:icon="@drawable/ic_categories"
         android:id="@+id/categoriesFragment"/>/>
 
