@@ -6,14 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.d3if3105.deliciouseats.databinding.PopularItemsBinding
-import com.d3if3105.deliciouseats.model.CategoryMeal
-import com.d3if3105.deliciouseats.model.MealList
+import com.d3if3105.deliciouseats.model.MealsByCategory
 
 class MostPopularAdapter():RecyclerView.Adapter<MostPopularAdapter.PopularMealViewHolder>() {
-    lateinit var onitemClick:((CategoryMeal) -> Unit)
-    private var mealList = ArrayList<CategoryMeal>()
+    lateinit var onitemClick:((MealsByCategory) -> Unit)
+    private var mealList = ArrayList<MealsByCategory>()
 
-    fun setMeals(mealList: ArrayList<CategoryMeal>){
+    fun setMeals(mealList: ArrayList<MealsByCategory>){
         this.mealList = mealList
         notifyDataSetChanged()
     }
