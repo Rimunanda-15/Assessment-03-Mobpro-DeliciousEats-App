@@ -5,13 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.d3if3105.deliciouseats.api.RetrofitInstance
+import com.d3if3105.deliciouseats.model.CategoryList
+import com.d3if3105.deliciouseats.model.CategoryMeal
 import com.d3if3105.deliciouseats.model.Meal
 import com.d3if3105.deliciouseats.model.MealList
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
 class HomeViewModel():ViewModel() {
     private  var randomMealLiveData = MutableLiveData<Meal>()
+    private var popularItemLiveData = MutableLiveData<List<CategoryMeal>>()
     fun getRandomMeal(){
         RetrofitInstance.foodApi.getRandomMeal().enqueue(object : retrofit2.Callback<MealList>{
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
@@ -29,7 +33,26 @@ class HomeViewModel():ViewModel() {
         })
     }
 
+    fun getPopularItems(){
+        RetrofitInstance.foodApi.getPopularItems("Seafood").enqueue(object : Callback<CategoryList>{
+            override fun onResponse(call: Call<CategoryList>, response: Response<CategoryList>) {
+                if (response.body() != null){
+                    popularItemLiveData.value = response.body()!!.meals
+                }
+            }
+
+            override fun onFailure(call: Call<CategoryList>, t: Throwable) {
+                Log.d("HomeFragment", t.message.toString())
+            }
+
+        })
+    }
+
     fun observeRandomMealLiveData():LiveData<Meal>{
         return randomMealLiveData
+    }
+
+    fun observePopularItemLiveData():LiveData<List<CategoryMeal>>{
+        return popularItemLiveData
     }
 }
